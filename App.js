@@ -3,7 +3,7 @@ import React from "react";
 import { render } from 'react-dom';
 import {
   StyleSheet,
-  Text, Image, TextInput, Button, Switch,
+  Text, Image, TextInput, Button, Switch, SafeAreaView,
   View, ScrollView,
   FlatList, SectionList,
   Platform, 
@@ -25,6 +25,20 @@ const List1 = function(props) {
         }}
         />
       <StatusBar style="auto" />
+    </View>
+  )
+}
+
+function List2(props) {
+  // sections
+  return (
+    <View>
+      <SectionList
+        {...props}
+        keyExtractor={(item, index) => item+index}
+        renderItem={({item}) => <Text>{item}</Text>}
+        renderSectionHeader={({section}) => <Text style={{fontWeight: 700}}>{section.title}</Text>}
+        />
     </View>
   )
 }
@@ -81,16 +95,36 @@ const Button2 = function() {
         <Text>Press Me</Text>
     </TouchableHighlight>
   )
-} 
+}
 
 export default function App() {
   return (
     <View style={[styles.container]}>
+      <Text style={{fontWeight: 700}}>List</Text>
       <List1 data={[
-          {f: "Tag", v: "List1"},
           {f: "Platform.OS", v: Platform.OS},
           {f: "Platform.Version", v: Platform.Version},
         ]}/>
+      <Text style={{fontWeight: 700}}>Section List</Text>
+      <List2 sections={[
+        {
+          title: "Main dishes",
+          data: ["Pizza", "Burger", "Risotto"]
+        },
+        {
+          title: "Sides",
+          data: ["French Fries", "Onion Rings", "Fried Shrimps"]
+        },
+        {
+          title: "Drinks",
+          data: ["Water", "Coke", "Beer"]
+        },
+        {
+          title: "Desserts",
+          data: ["Cheese Cake", "Ice Cream"]
+        }
+      ]} />
+      <Text style={{fontWeight: 700}}>Buttons</Text>
       <View style={{flexDirection: "row"}}>
         <Button1 />
         <Button2 />
